@@ -174,8 +174,6 @@ namespace ConsoleApp1
         public int solution16(int n)
         {
             int result = 0;
-            
-            int root = (int)Math.Sqrt(n);
 
             int[] a = new int[n + 1];
 
@@ -184,13 +182,19 @@ namespace ConsoleApp1
                 a[i] = i;
             }
 
-            for (int i = 2; i <= root; ++i)
+            for (int i = 2; i <= (int)Math.Sqrt(n); ++i)
             {
-                if (a[i] == 0) continue;
+                if (a[i] == 0)
+                {
+                    continue;
+                }
 
                 for (int j = i * 2; j <= n; j += i)
                 {
-                    if (a[j] == 0) continue;
+                    if (a[j] == 0)
+                    {
+                        continue;
+                    }
 
                     a[j] = 0;
                 }
@@ -268,6 +272,196 @@ namespace ConsoleApp1
             result = strings;
 
             return result;
+
+            //strings.ToList().OrderBy(x => x).OrderBy(x => x[n]).ToArray();
+
+            //return strings;
+        }
+
+        //21번 
+        public int[] solution21(int[] numbers)
+        {
+            List<int> result = new List<int>();
+
+            for (int i = 0; i < numbers.Length - 1; ++i)
+            {
+                for (int j = i + 1; j < numbers.Length; ++j)
+                {
+                    if (!result.Contains(numbers[i] + numbers[j]))
+                    {
+                        result.Add(numbers[i] + numbers[j]);
+                    }
+                }
+            }
+
+            result.Sort();
+
+            return result.ToArray();
+        }
+
+        //22번
+        public string solution22(string s)
+        {
+            string result = "";
+
+            string[] a = s.Split();
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                for (int j = 0; j < a[i].ToString().Length; j++)
+                {
+                    if (j % 2 == 0)
+                    {
+                        result += a[i][j].ToString().ToUpper(); //대
+                    }
+                    else
+                    {
+                        result += a[i][j].ToString().ToLower(); //소
+                    }
+                }
+
+                if (i != a.Length - 1)
+                {
+                    result += " ";
+                }
+            }
+            return result;
+        }
+
+
+        //23번
+        public static string solution23(int a, int b)
+        { 
+            string result = ""; 
+            
+            DateTime date = new DateTime(2024, a, b);
+
+            result = date.DayOfWeek.ToString().Substring(0, 3).ToUpper();
+
+            return result;
+        }
+
+        //24번
+        public int[] solution24(int[] answers)
+        {
+            List<int> result = new List<int>();
+            int[][] student = new int[3][];
+
+            student[0] = new int[] { 1, 2, 3, 4, 5 };
+            student[1] = new int[] { 2, 1, 2, 3, 2, 4, 2, 5 };
+            student[2] = new int[] { 3, 3, 1, 1, 2, 2, 4, 4, 5, 5 };
+            int[] a = new int[3] { 0, 0, 0 };
+
+            for(int i = 0; i < answers.Length; i++)
+            {
+                for (int j = 0; j < a.Length; j++)
+                {
+                    if(student[j][i % student[j].Length] == answers[i])
+                    {
+                        a[j]++;
+                    }
+                }
+            }
+
+            for(int i = 0; i < a.Length; i++)
+            {
+                if(a[i] == a.Max())
+                {
+                    result.Add(i + 1);
+                }
+            }
+
+            return result.ToArray();
+        }
+
+        //25번
+        public int solution25(int n, int[] lost, int[] reserve)
+        {
+            int result = 0;
+
+            List<int> Lost = new List<int>(lost);
+            List<int> Reserve = new List<int>(reserve);
+
+            Reserve = Reserve.Where(p => !lost.Contains(p)).ToList();
+            Lost = Lost.Where(p => !reserve.Contains(p)).ToList();
+
+            result = n - Lost.Count;
+
+            for(int i = 0; i < Lost.Count; i++)
+            {
+                if (Reserve.Contains(Lost[i] - 1))
+                {
+                    Reserve.Remove(Lost[i] - 1);
+
+                    result++;
+                }
+                else if (Reserve.Contains(Lost[i] + 1))
+                {
+                    Reserve.Remove(Lost[i] + 1);
+
+                    result++;
+                }
+            }
+
+            return result;
+        }
+
+        //26번
+        public int solution26(string s)
+        {
+            int result = 0;
+
+            string[] a = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+
+            for(int i = 0; i < a.Length; i++)
+            {
+                s = s.Replace();
+            }
+
+
+
+            return result;
+        }
+
+        //27번
+        public string solution27(string s)
+        {
+            string result = "";
+
+            string[] a = s.Split(' ');
+
+            for(int i = 0; i < a.Length; ++i)
+            {
+                if(a[i] == " ")
+                {
+                    continue;
+                }
+
+                a[i] = a[i].ToLower();
+
+                if(int.TryParse(a[i].First().ToString(), out int temp) == false)
+                {
+                    a[i] = char.ToUpper(a[i].First()) + a[i].Substring(1);
+                }
+
+                result = string.Join(" ", a);
+
+                return result;
+            }
+
+            return result;
+        }
+
+
+        //28번
+        public int[] solution28(int[] prices)
+        {
+            int[] result = new int[] { };
+
+
+
+            return result;
         }
     }
+
 }
